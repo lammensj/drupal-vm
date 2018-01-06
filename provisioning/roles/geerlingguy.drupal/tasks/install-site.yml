@@ -37,7 +37,7 @@
   command: "{{ drush_path }} entup -y"
   args:
     chdir: "{{ drupal_core_path }}"
-  when: not drupal_site_exists
+  when: "'Drupal bootstrap' not in drupal_site_installed.stdout"
 
 - name: Install configured modules with drush.
   command: >
