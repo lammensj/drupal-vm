@@ -20,5 +20,6 @@ You can add configuration for Elasticsearch by setting the appropriate variables
 
     elasticsearch_network_host: localhost
     elasticsearch_http_port: 9200
+    elasticsearch_repo_version: 6.x
 
-For a list of available role variables, see the [`geerlingguy.elasticsearch` Ansible role's README](https://github.com/geerlingguy/ansible-role-elasticsearch#readme).
+For a list of available role variables, see the [`lammensj.elasticsearch` Ansible role's README](https://github.com/lammensj/ansible-role-elasticsearch#readme).

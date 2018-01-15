@@ -1,0 +1,23 @@
+---
+- name: Set Xms memory option
+  lineinfile:
+    dest: /etc/elasticsearch/jvm.options
+    regexp: '^-Xms'
+    line: '-Xms{{ elasticsearch_memory_xms }}'
+  notify: restart elasticsearch
+
+- name: Set Xmx memory option
+  lineinfile:
+    dest: /etc/elasticsearch/jvm.options
+    regexp: '^-Xmx'
+    line: '-Xmx{{ elasticsearch_memory_xmx }}'
+  notify: restart elasticsearch
+
+- name: Reset MAX_MAP_COUNT as inside container - do the change on host!
+  lineinfile:
+    dest: /etc/default/elasticsearch
+    regexp: '^MAX_MAP_COUNT=.*'
+    line: 'MAX_MAP_COUNT='
+    backup: yes
+  when: ansible_os_family == 'Debian' and (ansible_virtualization_type == 'docker' or ansible_virtualization_type == 'lxc' or ansible_virtualization_type == 'openvz')
+  notify: restart elasticsearch

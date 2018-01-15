@@ -1,0 +1,13 @@
+---
+elasticsearch_network_host: localhost
+elasticsearch_http_port: 9200
+
+# See https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html
+elasticsearch_memory_xms: 256m
+elasticsearch_memory_xmx: 256m
+
+# See https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html#mlockall
+elasticsearch_bootstrap_memory_lock: true
+
+# Elasticsearch apt repository version
+elasticsearch_repo_version: 6.x
