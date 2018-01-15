@@ -1,5 +1,4 @@
 ---
-
 - name: Add apt-transport-https package
   package: name=apt-transport-https state=present
 

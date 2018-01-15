@@ -9,7 +9,6 @@
     owner: root
     group: elasticsearch
     mode: 0750
-  when: false
   notify: restart elasticsearch
 
 - include: settings.yml

@@ -1,4 +1,6 @@
 ---
+java_packages:
+  - openjdk-8-jdk
 elasticsearch_network_host: localhost
 elasticsearch_http_port: 9200
 
@@ -11,6 +13,3 @@ elasticsearch_bootstrap_memory_lock: true
 
 # Elasticsearch apt repository version
 elasticsearch_repo_version: 6.x
-
-java_packages:
-  - openjdk-8-jdk

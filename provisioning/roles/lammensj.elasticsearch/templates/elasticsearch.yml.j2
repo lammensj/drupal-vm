@@ -43,12 +43,10 @@
 #
 bootstrap.memory_lock: {{ elasticsearch_bootstrap_memory_lock }}
 #
-# Make sure that the heap size is set to about half the memory available
-# on the system and that the owner of the process is allowed to use this
-# limit.
+# Make sure that the `ES_HEAP_SIZE` environment variable is set to about half the memory
+# available on the system and that the owner of the process is allowed to use this limit.
 #
 # Elasticsearch performs poorly when the system is swapping the memory.
-
 #
 # ---------------------------------- Network -----------------------------------
 #
@@ -87,6 +85,10 @@ http.port: {{ elasticsearch_http_port }}
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html>
 #
 # ---------------------------------- Various -----------------------------------
+#
+# Disable starting multiple nodes on a single system:
+#
+# node.max_local_storage_nodes: 1
 #
 # Require explicit names when deleting indices:
 #
