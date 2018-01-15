@@ -31,17 +31,17 @@
 #
 # Path to directory where to store the data (separate multiple locations by comma):
 #
-# path.data: /path/to/data
+path.data: /var/lib/elasticsearch
 #
 # Path to log files:
 #
-# path.logs: /path/to/logs
+path.logs: /var/log/elasticsearch
 #
 # ----------------------------------- Memory -----------------------------------
 #
 # Lock the memory on startup:
 #
-bootstrap.memory_lock: {{ elasticsearch_bootstrap_memory_lock }}
+# bootstrap.memory_lock: {{ elasticsearch_bootstrap_memory_lock }}
 #
 # Make sure that the `ES_HEAP_SIZE` environment variable is set to about half the memory
 # available on the system and that the owner of the process is allowed to use this limit.
@@ -93,10 +93,3 @@ http.port: {{ elasticsearch_http_port }}
 # Require explicit names when deleting indices:
 #
 #action.destructive_requires_name: true
-
-script.inline: {{ elasticsearch_script_inline | lower }}
-{# 6.x: org.elasticsearch.bootstrap.StartupException: java.lang.IllegalArgumentException: unknown setting [script.indexed] did you mean any of [script.inline, script.ingest]? #}
-{% if elasticsearch_repo_version == '2.x' %}
-script.indexed: {{ elasticsearch_script_indexed | lower }}
-{% endif %}
-
