@@ -1,0 +1,2 @@
+- src: https://github.com/drunomics/ansible-role-java
+  name: drunomics.java
