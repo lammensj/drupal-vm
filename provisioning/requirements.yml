@@ -24,7 +24,7 @@
 - src: geerlingguy.drush
   version: 3.0.0
 - src: lammensj.elasticsearch
-  version: 1.0.0
+  version: 5.6.6
 - src: geerlingguy.firewall
   version: 2.3.0
 - src: geerlingguy.git
