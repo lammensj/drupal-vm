@@ -22,12 +22,12 @@
     - name: fail if any existing 1.x/2.x package
       fail: msg="This role CAN'T upgrade 1.x/2.x install! review documentation to do that."
       when: current.stdout != ''
-    - name: Add Elasticsearch repository. - 6.x
+    - name: Add Elasticsearch repository. - 5.x
       apt_repository:
-        repo: 'deb https://artifacts.elastic.co/packages/6.x/apt stable main'
+        repo: 'deb https://artifacts.elastic.co/packages/5.x/apt stable main'
         state: present
         update_cache: yes
-  when: elasticsearch_repo_version == '6.x'
+  when: elasticsearch_repo_version == '5.x'
 
 - name: Install Elasticsearch.
   apt: pkg=elasticsearch state=present

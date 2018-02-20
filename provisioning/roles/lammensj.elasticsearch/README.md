@@ -1,19 +1,14 @@
-##lammensj.elasticsearch##
+##drunomics.elasticsearch##
+[![Build Status](https://travis-ci.org/drunomics/ansible-role-elasticsearch.svg?branch=master)](https://travis-ci.org/drunomics/ansible-role-elasticsearch)
 
 Ansible role that extends upstream roles for installing elastic search with 
 some custom configuration.
 
 ## Master
 
-This branch install elasticsearch 6.*.
+This branch install elasticsearch 5.*.
 
-This is a fork of https://github.com/drunomics/ansible-role-elasticsearch.
-
-## Branch "elastic-5.x"
-
-This branch installs elasticsearch 2.5.*.
-
-This extends drunomics.elasticsearch.
+This is a fork of https://github.com/geerlingguy/ansible-role-elasticsearch.
 
 ## Branch "elastic-2.x"
 
@@ -33,4 +28,4 @@ some custom configuration.
 
 Support Distribution: Ubuntu, 14.04. Support for 16.04 is planned.
 
-MIT License
+(c) 2017 drunomics GmbH. /  MIT License
