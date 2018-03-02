@@ -12,4 +12,4 @@ elasticsearch_memory_xmx: 512m
 elasticsearch_bootstrap_memory_lock: true
 
 # Elasticsearch apt repository version
-elasticsearch_repo_version: 5.x
+elasticsearch_repo_version: 6.x
