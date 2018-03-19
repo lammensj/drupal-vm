@@ -9,7 +9,7 @@
 
 - name: Add Elasticsearch repository. - 2.x
   apt_repository:
-    repo: 'deb http://packages.elastic.co/elasticsearch/2.x/debian stable main'
+    repo: 'deb http://packages.elastic.co/elasticsearch/{{ elasticsearch_repo_version }}/debian stable main'
     state: present
     update_cache: yes
   when: elasticsearch_repo_version == '2.x'
@@ -24,13 +24,16 @@
       when: current.stdout != ''
     - name: Add Elasticsearch repository. - 6.x
       apt_repository:
-        repo: 'deb https://artifacts.elastic.co/packages/6.x/apt stable main'
+        repo: 'deb https://artifacts.elastic.co/packages/{{ elasticsearch_repo_version }}/apt stable main'
         state: present
         update_cache: yes
   when: elasticsearch_repo_version == '6.x'
 
 - name: Install Elasticsearch.
-  apt: pkg=elasticsearch state=present
+  apt:
+    name: 'elasticsearch={{ elasticsearch_pkg_version }}'
+    state: present
+    force: yes
   when: not (ansible_virtualization_type is defined and (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker"))
 
 - name: Install Elasticsearch. (containers)

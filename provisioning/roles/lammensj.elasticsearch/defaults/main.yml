@@ -13,3 +13,4 @@ elasticsearch_bootstrap_memory_lock: true
 
 # Elasticsearch apt repository version
 elasticsearch_repo_version: 6.x
+elasticsearch_pkg_version: '6.2.2'
