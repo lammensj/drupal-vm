@@ -3,6 +3,8 @@
   version: 2.2.2
 - src: thom8.php-upload-progress
   version: 1.0.1
+- src: elastic.elasticsearch
+  version: 6.2.4
 - src: franklinkim.newrelic
   version: 1.7.2
 - src: geerlingguy.adminer
