@@ -328,6 +328,9 @@ php_xdebug_idekey: PHPSTORM
 php_xdebug_max_nesting_level: 256
 php_xdebug_remote_host: "{{ ansible_default_ipv4.gateway }}"
 
+# Elasticsearch configuration (if enabled above).
+es_instance_name: "{{ vagrant_machine_name }}"
+
 # Solr Configuration (if enabled above).
 solr_version: "5.5.5"
 solr_xms: "64M"
