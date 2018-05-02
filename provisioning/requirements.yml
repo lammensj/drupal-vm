@@ -83,3 +83,5 @@
   version: 2.3.0
 - src: lammensj.drupal
   version: 2.5.2
+- src: lammensj.kibana
+  version: 6.2.4

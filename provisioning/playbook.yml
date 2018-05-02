@@ -92,6 +92,7 @@
     - { role: arknoll.selenium, when: '"selenium" in installed_extras' }
     - { role: geerlingguy.solr, when: '"solr" in installed_extras' }
     - { role: elastic.elasticsearch, when: '"elasticsearch" in installed_extras' }
+    - { role: lammensj.kibana, when: '"elasticsearch" in installed_extras' }
     - { role: geerlingguy.varnish, when: '"varnish" in installed_extras' }
     - { role: drupalvm.www, tags: ['webserver'] }
     - { role: lammensj.drupal, tags: ['drupal'] }
