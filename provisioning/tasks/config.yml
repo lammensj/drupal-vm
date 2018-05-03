@@ -14,3 +14,11 @@
     - "{{ config_dir }}/secrets.yml"
     - "{{ config_dir }}/{{ lookup('env', 'DRUPALVM_ENV')|default(drupalvm_env, true)|default(ansible_env.DRUPALVM_ENV)|default(omit) }}.config.yml"
     - "{{ config_dir }}/local.config.yml"
+
+- stat:
+    path: "{{ config_dir }}/app_type.{{ drupalvm_app_type }}.config.yml"
+  register: app_type_config
+
+- name: Include app-type-specific configuration.
+  include_vars: "{{ config_dir }}/app_type.{{ drupalvm_app_type }}.config.yml"
+  when: app_type_config.stat.exists

@@ -18,6 +18,7 @@ vagrant_ansible_inventory_default
 local.config.yml
 Vagrantfile.local
 /config.yml
+/app_type.*.config.yml
 /docker-compose.yml
 /drupal.make.yml
 /examples/prod/inventory
