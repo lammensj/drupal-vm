@@ -75,8 +75,7 @@ drush_make_options: "--no-gitinfofile"
 drupal_build_composer: false
 drupal_composer_path: "{{ config_dir }}/drupal.composer.json"
 drupal_composer_install_dir: "/var/www/drupalvm/drupal"
-drupal_composer_dependencies:
-  - "drupal/devel:1.x-dev"
+drupal_composer_dependencies: []
 
 # Set this to 'true' and 'drupal_build_makefile', 'drupal_build_composer' to 'false'
 # if you are using Composer's create-project as a site deployment strategy.
@@ -86,7 +85,7 @@ drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction
 
 # Set this to 'false' if you don't need to install drupal (using the drupal_*
 # settings below), but instead copy down a database (e.g. using drush sql-sync).
-drupal_install_site: true
+drupal_install_site: false
 
 # Required Drupal settings.
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
@@ -101,9 +100,10 @@ drupal_major_version: 8
 drupal_domain: "{{ vagrant_hostname }}"
 drupal_site_name: "Drupal"
 drupal_install_profile: standard
-drupal_enable_modules: [ 'devel' ]
+drupal_enable_modules: []
 drupal_account_name: admin
 drupal_account_pass: admin
+drupal_account_mail: admin@example.com
 
 # Additional arguments or options to pass to `drush site-install`.
 drupal_site_install_extra_args: []
@@ -114,7 +114,7 @@ drupalvm_cron_jobs: []
 
 # Drupal VM automatically creates a drush alias file in your ~/.drush folder if
 # this variable is 'true'.
-configure_drush_aliases: true
+configure_drush_aliases: false
 drush_aliases_host_template: "templates/drupalvm.aliases.drushrc.php.j2"
 drush_aliases_host_template_yml: "templates/drupalvm.aliases.yml.j2"
 drush_aliases_guest_template: "templates/drupalvm-local.aliases.drushrc.php.j2"
