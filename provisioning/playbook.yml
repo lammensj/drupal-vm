@@ -97,7 +97,9 @@
     - { role: lammensj.kibana, when: '"elasticsearch" in installed_extras' }
     - { role: geerlingguy.varnish, when: '"varnish" in installed_extras' }
     - { role: drupalvm.www, tags: ['webserver'] }
+
     - { role: lammensj.drupal, when: drupalvm_app_type == 'drupal', tags: ['drupal'] }
+    - { role: lammensj.wordpress, when: drupalvm_app_type == 'wordpress', tags: ['wordpress'] }
 
     # Roles for security and stability on production.
     - { role: geerlingguy.security, when: extra_security_enabled }

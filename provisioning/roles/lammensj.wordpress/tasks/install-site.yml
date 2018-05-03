@@ -1,0 +1,37 @@
+---
+- name: Check if site is already installed.
+  command: "wp core is-installed --path={{ wordpress_core_path }}/web/wp"
+  register: wordpress_site_installed
+  failed_when: "wordpress_site_installed.stdout is undefined"
+  changed_when: false
+  become: yes
+  become_user: "{{ drupalvm_user }}"
+
+- name: Update environment variables.
+  block:
+    - command: "wp dotenv set DB_NAME {{ wordpress_db_name }} --file={{ wordpress_core_path }}/.env"
+    - command: "wp dotenv set DB_USER {{ wordpress_db_user }} --file={{ wordpress_core_path }}/.env"
+    - command: "wp dotenv set DB_PASSWORD {{ wordpress_db_password }} --file={{ wordpress_core_path }}/.env"
+    - command: "wp dotenv set DB_HOST {{ wordpress_db_host }} --file={{ wordpress_core_path }}/.env"
+    - command: "wp dotenv set WP_ENV {{ wordpress_env | default('development') }} --file={{ wordpress_core_path }}/.env"
+    - command: "wp dotenv set WP_HOME http://{{ vagrant_hostname }} --file={{ wordpress_core_path }}/.env"
+    - command: "wp dotenv set WP_SITEURL http://{{ vagrant_hostname }}/wp --file={{ wordpress_core_path }}/.env"
+    - command: "wp dotenv salts generate --file={{ wordpress_core_path }}/.env"
+  when: "wordpress_site_installed.rc == 1"
+  become: yes
+  become_user: "{{ drupalvm_user }}"
+
+- name: Install Wordpress with WP.
+  command: >
+    wp core install
+    --url={{ vagrant_hostname }}
+    --title={{ wordpress_site_name }}
+    --admin_user={{ wordpress_account_name }}
+    --admin_password={{ wordpress_account_pass }}
+    --admin_email={{ wordpress_account_mail }}
+    --skip-email
+    --path={{ wordpress_core_path }}/web/wp
+  when: "wordpress_site_installed.rc == 1"
+  become: yes
+  become_user: "{{ drupalvm_user }}"
+  notify: restart apache

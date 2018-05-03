@@ -1,0 +1,22 @@
+---
+- name: Check if WP CLI is installed.
+  shell: command -v wp > /dev/null 2>&1
+  register: is_wp_exist
+  ignore_errors: yes
+  become: yes
+  become_user: "{{ drupalvm_user }}"
+
+- name: Install WP CLI globally.
+  composer:
+    command: require
+    global_command: yes
+    arguments: "wp-cli/wp-cli"
+  become: yes
+  become_user: "{{ drupalvm_user }}"
+  when: "is_wp_exist.stdout == ''"
+
+- name: Install the 'WP-CLI Dotenv Command'-package.
+  command: "wp package install aaemnnosttv/wp-cli-dotenv-command:^1.0"
+  become: yes
+  become_user: "{{ drupalvm_user }}"
+  when: "is_wp_exist.stdout == ''"

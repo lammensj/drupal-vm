@@ -1,0 +1,19 @@
+---
+- name: Check if Wordpress is already set up.
+  stat: "path={{ wordpress_core_path }}/web/wp/wp-load.php"
+  register: wordpress_site
+  ignore_errors: true
+
+- name: Define wordpress_site_exists if it's not already defined.
+  set_fact:
+    wordpress_site_exists: "{{ wordpress_site.stat.exists | default(false) }}"
+  when: wordpress_site_exists is not defined
+
+# Build a composer project
+- include_tasks: tasks/build-composer-project.yml
+
+# Install site.
+- block:
+    - include_tasks: tasks/wp-cli.yml
+    - include_tasks: tasks/install-site.yml
+  when: wordpress_install_site

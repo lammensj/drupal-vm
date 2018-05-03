@@ -85,5 +85,7 @@
   version: 2.5.4
 - src: lammensj.kibana
   version: 6.2.4
+- src: lammensj.wordpress
+  version: 1.0.0
 - src: tersmitten.swapfile
   version: v2.0.4
