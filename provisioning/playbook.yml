@@ -100,6 +100,7 @@
 
     - { role: lammensj.drupal, when: drupalvm_app_type == 'drupal', tags: ['drupal'] }
     - { role: lammensj.wordpress, when: drupalvm_app_type == 'wordpress', tags: ['wordpress'] }
+    - { role: lammensj.web_app, when: drupalvm_app_type == 'web_app', tags: ['web_app'] }
 
     # Roles for security and stability on production.
     - { role: geerlingguy.security, when: extra_security_enabled }

@@ -1,0 +1,21 @@
+---
+- name: Check if the app core directory exists.
+  stat:
+    path: "{{ web_app_core_path }}"
+  register: web_app_exists
+
+- name: Ensure web_app_core_path directory has proper permissions.
+  file:
+    path: "{{ web_app_core_path }}"
+    state: directory
+    owner: "{{ web_app_core_owner }}"
+    group: "{{ web_app_core_owner }}"
+    mode: 0775
+  when: not web_app_exists.stat.exists
+  failed_when: false
+
+- name: Provide a default landing page.
+  template:
+    src: index.php.j2
+    dest: "{{ web_app_core_path }}/index.php"
+  when: not web_app_exists.stat.exists
