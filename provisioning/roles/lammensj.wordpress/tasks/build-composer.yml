@@ -1,0 +1,28 @@
+---
+- name: Ensure wordpress_composer_install_dir directory has proper permissions.
+  file:
+    path: "{{ wordpress_composer_install_dir }}"
+    state: directory
+    owner: "{{ wordpress_core_owner }}"
+    group: "{{ wordpress_core_owner }}"
+    mode: 0775
+  when: wordpress_composer_path and not wordpress_site_exists
+  failed_when: false
+
+# Use copy-and-move to prevent issues in Windows with VirtualBox. See:
+# https://github.com/ansible/ansible/issues/9526#issuecomment-62336962
+- name: Copy composer.json to temporary location.
+  copy:
+    src: "{{ wordpress_composer_path }}"
+    dest: "/tmp/drupalvm-composer.json"
+  when: wordpress_composer_path and not wordpress_site_exists
+
+- name: Move composer.json into place.
+  command: "mv /tmp/drupalvm-composer.json {{ wordpress_composer_install_dir }}/composer.json"
+  when: wordpress_composer_path and not wordpress_site_exists
+
+- name: Run composer install (this may take a while).
+  composer:
+    command: install
+    working_dir: "{{ wordpress_composer_install_dir }}"
+  when: not wordpress_site_exists

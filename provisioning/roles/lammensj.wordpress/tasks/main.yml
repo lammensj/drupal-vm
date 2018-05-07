@@ -9,8 +9,13 @@
     wordpress_site_exists: "{{ wordpress_site.stat.exists | default(false) }}"
   when: wordpress_site_exists is not defined
 
-# Build a composer project
+# Build with composer, if configured.
+- include_tasks: tasks/build-composer.yml
+  when: wordpress_build_composer
+
+# Build a composer project, if configured.
 - include_tasks: tasks/build-composer-project.yml
+  when: wordpress_build_composer_project
 
 # Install site.
 - block:

@@ -12,7 +12,13 @@ wordpress_db_name: wordpress
 wordpress_db_user: wordpress
 wordpress_db_password: wordpress
 
-wordpress_install_site: true
+wordpress_install_site: false
+
+# Define how to build Wordpress
+wordpress_build_composer_project: false # Clean install using the configured package.
+
+wordpress_build_composer: false # Using an existing composer.json at the configured location.
+wordpress_composer_path: "{{ wordpress_composer_install_dir }}/composer.json"
 
 wordpress_core_path: "{{ wordpress_composer_install_dir }}/public"
 wordpress_site_name: "Wordpress"
