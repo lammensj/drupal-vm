@@ -1,9 +1,10 @@
 ---
 # Required Wordpress settings.
-wordpress_core_path: "/var/www/app/htdocs"
 wordpress_core_owner: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
 
-wordpress_composer_project_package: "roots/bedrock"
+# Composer settings
+wordpress_composer_install_dir: "/var/www/app/htdocs"
+wordpress_composer_project_package: "lammensj/wordplate"
 
 # MySQL databases and users.
 wordpress_db_host: localhost
@@ -13,6 +14,7 @@ wordpress_db_password: wordpress
 
 wordpress_install_site: true
 
+wordpress_core_path: "{{ wordpress_composer_install_dir }}/public"
 wordpress_site_name: "Wordpress"
 wordpress_account_name: admin
 wordpress_account_pass: admin

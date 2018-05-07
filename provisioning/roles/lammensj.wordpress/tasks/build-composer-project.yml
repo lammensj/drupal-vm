@@ -9,15 +9,15 @@
   command: >
     {{ composer_path }} create-project
     {{ wordpress_composer_project_package }} /tmp/composer-project
-    {{ wordpress_composer_project_options | default('--prefer-dist --no-interaction') }}
+    {{ wordpress_composer_project_options | default('-n') }}
   when: not wordpress_site_exists
   become: no
   environment:
     COMPOSER_PROCESS_TIMEOUT: 1200
 
-- name: Ensure wordpress_core_path directory has proper permissions.
+- name: Ensure wordpress_composer_install_dir directory has proper permissions.
   file:
-    path: "{{ wordpress_core_path }}"
+    path: "{{ wordpress_composer_install_dir }}"
     state: directory
     owner: "{{ wordpress_core_owner }}"
     group: "{{ wordpress_core_owner }}"
@@ -25,9 +25,9 @@
   when: not wordpress_site_exists
   failed_when: false
 
-- name: Move Wordpress project files to wordpress_core_path (this may take a while).
+- name: Move Wordpress project files to wordpress_composer_install_dir (this may take a while).
   command: >
-    cp -r /tmp/composer-project/. {{ wordpress_core_path }}/
-    creates={{ wordpress_core_path }}/index.php
+    cp -r /tmp/composer-project/. {{ wordpress_composer_install_dir }}/
+    creates={{ wordpress_composer_install_dir }}/wp-cli.yml
   become: no
   when: not wordpress_site_exists

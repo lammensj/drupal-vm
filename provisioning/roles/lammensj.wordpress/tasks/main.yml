@@ -1,6 +1,6 @@
 ---
 - name: Check if Wordpress is already set up.
-  stat: "path={{ wordpress_core_path }}/web/wp/wp-load.php"
+  stat: "path={{ wordpress_core_path }}/wordpress/wp-load.php"
   register: wordpress_site
   ignore_errors: true
 
