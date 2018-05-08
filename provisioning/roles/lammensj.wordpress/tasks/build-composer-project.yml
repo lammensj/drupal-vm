@@ -5,11 +5,11 @@
     state: absent
   when: not wordpress_site_exists
 
-- name: Generate Wordpress project with composer package in /tml/composer-project (this may take a while).
+- name: Generate Wordpress project with composer package in /tmp/composer-project (this may take a while).
   command: >
     {{ composer_path }} create-project
     {{ wordpress_composer_project_package }} /tmp/composer-project
-    {{ wordpress_composer_project_options | default('-n') }}
+    {{ wordpress_composer_project_options | default('-n --no-dev') }}
   when: not wordpress_site_exists
   become: no
   environment:
