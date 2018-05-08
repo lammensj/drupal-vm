@@ -16,7 +16,7 @@
   when: "is_wp_exist.stdout == ''"
 
 - name: Install the 'WP-CLI Dotenv Command'-package.
-  command: "wp package install aaemnnosttv/wp-cli-dotenv-command:^1.0"
+  command: "{{ composer_home_path }}/vendor/bin/wp package install aaemnnosttv/wp-cli-dotenv-command:^1.0"
   become: yes
   become_user: "{{ drupalvm_user }}"
   when: "is_wp_exist.stdout == ''"

@@ -1,6 +1,6 @@
 ---
 - name: Check if site is already installed.
-  command: "wp core is-installed --path={{ wordpress_core_path }}/wordpress"
+  command: "{{ composer_home_path }}/vendor/bin/wp core is-installed --path={{ wordpress_core_path }}/wordpress"
   register: wordpress_site_installed
   failed_when: "wordpress_site_installed.stdout is undefined"
   ignore_errors: true
@@ -10,19 +10,19 @@
 
 - name: Update environment variables.
   block:
-    - command: "wp dotenv set DB_NAME {{ wordpress_db_name }} --file={{ wordpress_composer_install_dir }}/.env"
-    - command: "wp dotenv set DB_USER {{ wordpress_db_user }} --file={{ wordpress_composer_install_dir }}/.env"
-    - command: "wp dotenv set DB_PASSWORD {{ wordpress_db_password }} --file={{ wordpress_composer_install_dir }}/.env"
-    - command: "wp dotenv set DB_HOST {{ wordpress_db_host }} --file={{ wordpress_composer_install_dir }}/.env"
-    - command: "wp dotenv set WP_ENV {{ wordpress_env | default('local') }} --file={{ wordpress_composer_install_dir }}/.env"
-    - command: "wp dotenv salts generate --file={{ wordpress_composer_install_dir }}/.env"
+    - command: "{{ composer_home_path }}/vendor/bin/wp dotenv set DB_NAME {{ wordpress_db_name }} --file={{ wordpress_composer_install_dir }}/.env"
+    - command: "{{ composer_home_path }}/vendor/bin/wp dotenv set DB_USER {{ wordpress_db_user }} --file={{ wordpress_composer_install_dir }}/.env"
+    - command: "{{ composer_home_path }}/vendor/bin/wp dotenv set DB_PASSWORD {{ wordpress_db_password }} --file={{ wordpress_composer_install_dir }}/.env"
+    - command: "{{ composer_home_path }}/vendor/bin/wp dotenv set DB_HOST {{ wordpress_db_host }} --file={{ wordpress_composer_install_dir }}/.env"
+    - command: "{{ composer_home_path }}/vendor/bin/wp dotenv set WP_ENV {{ wordpress_env | default('local') }} --file={{ wordpress_composer_install_dir }}/.env"
+    - command: "{{ composer_home_path }}/vendor/bin/wp dotenv salts generate --file={{ wordpress_composer_install_dir }}/.env"
   when: "wordpress_site_installed.rc == 1"
   become: yes
   become_user: "{{ drupalvm_user }}"
 
 - name: Install Wordpress with WP.
   command: >
-    wp core install
+    {{ composer_home_path }}/vendor/bin/wp core install
     --url={{ vagrant_hostname }}
     --title={{ wordpress_site_name }}
     --admin_user={{ wordpress_account_name }}
@@ -37,6 +37,9 @@
 
 - name: Activate plugins
   command: >
-    wp plugin activate
+    {{ composer_home_path }}/vendor/bin/wp plugin activate
     --all
     --path={{ wordpress_core_path }}/wordpress
+  when: "wordpress_site_installed.rc == 1"
+  become: yes
+  become_user: "{{ drupalvm_user }}"
