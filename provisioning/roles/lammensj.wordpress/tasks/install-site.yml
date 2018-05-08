@@ -34,3 +34,9 @@
   become: yes
   become_user: "{{ drupalvm_user }}"
   notify: restart apache
+
+- name: Activate plugins
+  command: >
+    wp plugin activate
+    --all
+    --path={{ wordpress_core_path }}/wordpress
